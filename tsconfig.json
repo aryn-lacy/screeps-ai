@@ -3,9 +3,14 @@
     "module": "esnext",
     "lib": ["es2018"],
     "target": "es2018",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "outDir": "dist",
-    "baseUrl": "src/",
+    "rootDir": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "types": ["node", "screeps", "lodash"],
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "experimentalDecorators": true,

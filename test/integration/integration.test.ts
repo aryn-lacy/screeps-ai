@@ -1,10 +1,10 @@
-import {assert} from "chai";
-import {helper} from "./helper";
+import { describe, expect, it } from "vitest";
+import { helper } from "./helper";
 
 describe("main", () => {
   it("runs a server and matches the game tick", async function () {
     for (let i = 1; i < 10; i += 1) {
-      assert.equal(await helper.server.world.gameTime, i);
+      expect(await helper.server.world.gameTime).toBe(i);
       await helper.server.tick();
     }
   });
@@ -13,6 +13,6 @@ describe("main", () => {
     await helper.player.console(`Memory.foo = 'bar'`);
     await helper.server.tick();
     const memory = JSON.parse(await helper.player.memory);
-    assert.equal(memory.foo, 'bar');
+    expect(memory.foo).toBe('bar');
   });
 });

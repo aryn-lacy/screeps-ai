@@ -1,10 +1,13 @@
-"use strict";
-
+import { createRequire } from "node:module";
 import clear from 'rollup-plugin-clear';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import screeps from 'rollup-plugin-screeps';
 import typescript from 'rollup-plugin-typescript2';
+
+// This config is an ES module (hence the .mjs extension), but it still needs a
+// CommonJS require to read the local screeps.json credentials file.
+const require = createRequire(import.meta.url);
 
 let cfg;
 const dest = process.env.DEST;

@@ -10,29 +10,30 @@ Wikipedia](https://en.wikipedia.org/wiki/Test-driven_development).
 This documentation will cover the testing setup for those already familiar with
 the process of test driven design.
 
-Tests are written via [Mocha](https://mochajs.org/) and executed as tests only
-if they include `.test.ts` in their filename. If you have written a test file
-but aren't seeing it executed, this is probably why. There are two separate test
-commands and configurations, as unit tests don't need the complete Screeps
-server run-time as integration tests do.
+Tests run on [Vitest](https://vitest.dev/) and are executed only if they include
+`.test.ts` in their filename. If you have written a test file but aren't seeing
+it executed, this is probably why. There are two separate test commands and
+configurations, as unit tests don't need the complete Screeps server run-time
+that the optional integration tests do.
 
 ## Running Tests
 
-The standard `npm test` will execute all unit and integration tests in sequence.
-This is helpful for CI/CD and pre-publish checks, however during active
-development it's better to run just a subset of interesting tests.
+The standard `npm test` executes the unit test suite. This is helpful for CI/CD
+and pre-publish checks, however during active development it's better to run
+just a subset of interesting tests.
 
-You can use `npm run test-unit` or `npm run test-integration` to run just one of
-the test suites. Additionally you can supply Mocha options to these test
-commands to further control the testing behavior. As an example, the following
-command will only execute integration tests with the word `memory` in their
-description:
+`npm run test-unit` runs the unit suite once; `npm run test-watch` keeps Vitest
+running and re-runs affected tests as you edit. Vitest also accepts a filename
+filter: `npm run test-unit -- main` runs only the test files whose path matches
+`main`.
+
+`npm run test-integration` runs the optional integration suite (see below).
+Arguments after `--` are passed to Vitest directly; for example, this runs only
+the tests whose name matches `memory`:
 
 ```
-npm run test-integration -- -g memory
+npm run test-integration -- -t memory
 ```
-
-Note that arguments after the initial `--` will be passed to `mocha` directly.
 
 ## Unit Testing
 
@@ -54,18 +55,15 @@ yarn add -D screeps-server-mockup
 npm install --save-dev screeps-server-mockup
 ```
 
-You will also need to add scripts to run integration tests.
+The `test-integration` script in `package.json` already builds the project and
+runs this suite with Vitest, so once the dependency is installed you can run it
+directly:
 
-In `package.json`, add a new `test-integration` script and add the new integration testing to the main `test` script.
-
-```json
-  "scripts": {
-    "test": "npm run test-unit && npm run test-integration",
-    "test-integration": "npm run build && mocha test/integration/**/*.ts",
-  }
+```bash
+npm run test-integration
 ```
 
-Now you can run integration tests by using the `test-integration` script or run both unit and integration tests using the `test` script.
+If you want both suites to run together, add it to the `test` script as well.
 
 ### Integration Testing with Screeps Server Mockup
 

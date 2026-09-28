@@ -18,6 +18,5 @@
 - [Cookbook](in-depth/cookbook/README.md)
   - [Environment variables](in-depth/cookbook/environment-variables.md)
   - [One-line PowerShell setup](in-depth/cookbook/one-line-powershell.md)
-- [Remote Development](in-depth/remote-development.md)
 - [Troubleshooting](in-depth/troubleshooting.md)
 - [Contributing to the docs](in-depth/contributing.md)

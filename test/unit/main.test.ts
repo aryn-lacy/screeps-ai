@@ -1,26 +1,22 @@
-import {assert} from "chai";
-import {loop} from "../../src/main";
-import {Game, Memory} from "./mock"
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { loop } from "../../src/main";
+import { Game, Memory } from "./mock";
 
 describe("main", () => {
-  before(() => {
-    // runs before all test in this block
-  });
-
   beforeEach(() => {
-    // runs before each test in this block
-    // @ts-ignore : allow adding Game to global
-    global.Game = _.clone(Game);
-    // @ts-ignore : allow adding Memory to global
-    global.Memory = _.clone(Memory);
+    // The mocks are cloned *shallowly* on purpose: the game globals share the
+    // nested `creeps` objects with the mocks imported above, which is how the
+    // assertions below observe what `loop()` changed.
+    vi.stubGlobal("Game", _.clone(Game));
+    vi.stubGlobal("Memory", _.clone(Memory));
   });
 
   it("should export a loop function", () => {
-    assert.isTrue(typeof loop === "function");
+    expect(typeof loop).toBe("function");
   });
 
   it("should return void when called with no context", () => {
-    assert.isUndefined(loop());
+    expect(loop()).toBeUndefined();
   });
 
   it("Automatically delete memory of missing creeps", () => {
@@ -31,7 +27,7 @@ describe("main", () => {
 
     loop();
 
-    assert.isDefined(Memory.creeps.persistValue);
-    assert.isUndefined(Memory.creeps.notPersistValue);
+    expect(Memory.creeps.persistValue).toBeDefined();
+    expect(Memory.creeps.notPersistValue).toBeUndefined();
   });
 });

@@ -1,11 +1,13 @@
-const { readFileSync } = require('fs');
-const _ = require('lodash');
-const { ScreepsServer, stdHooks } = require('screeps-server-mockup');
-const DIST_MAIN_JS = 'dist/main.js';
+import { readFileSync } from "node:fs";
+import { afterEach, beforeAll, beforeEach } from "vitest";
+// @ts-ignore - installed on demand for the opt-in integration suite; see docs/in-depth/testing.md
+import { ScreepsServer, stdHooks } from "screeps-server-mockup";
+
+const DIST_MAIN_JS = "dist/main.js";
 
 /*
  * Helper class for creating a ScreepsServer and resetting it between tests.
- * See https://github.com/Hiryus/screeps-server-mockup for instructions on
+ * See https://github.com/screepers/screeps-server-mockup for instructions on
  * manipulating the terrain and game state.
  */
 class IntegrationTestHelper {
@@ -52,7 +54,7 @@ afterEach(async () => {
   await helper.afterEach();
 });
 
-before(() => {
+beforeAll(() => {
   stdHooks.hookWrite();
 });
 
