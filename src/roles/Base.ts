@@ -1,4 +1,4 @@
-import { CreepUtils } from "utils/CreepTools";
+import { CreepUtils } from "../utils/CreepTools";
 
 export abstract class RoleBase {
   public static roleName: CreepRole | undefined;

@@ -1,4 +1,4 @@
-import { CreepUtils } from "utils/CreepTools";
+import { CreepUtils } from "../utils/CreepTools";
 import { RoleBase } from "./Base";
 
 export class RoleBuilder extends RoleBase {
