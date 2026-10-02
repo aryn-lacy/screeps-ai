@@ -15,9 +15,13 @@ export abstract class RoleBase {
     if(creepCount.length < spawnNum && !Game.spawns.Spawn1.spawning) {
       const newName = `${this.roleName}${Game.time}`;
 
-      console.log(`Spawning new ${this.roleName}: ${newName}`);
-      Game.spawns.Spawn1.spawnCreep([WORK, CARRY, MOVE], newName,
-        { memory: { role: this.roleName, room: Game.spawns.Spawn1.room.name, working: false } });
+      const spawnStatus = Game.spawns.Spawn1.spawnCreep([WORK, CARRY, MOVE], newName,
+        {
+          memory: { role: this.roleName, room: Game.spawns.Spawn1.room.name, working: false }
+        });
+      if (spawnStatus === OK) {
+        console.log(`Spawned new ${this.roleName}: ${newName}`);
+      }
     }
   }
 }

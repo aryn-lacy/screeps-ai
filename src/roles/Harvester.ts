@@ -8,7 +8,7 @@ export class RoleHarvester extends RoleBase {
     const { creep } = this;
 
     const sources = creep.room.find(FIND_SOURCES);
-    if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+    if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE && creep.store[RESOURCE_ENERGY] < creep.store.getCapacity()) {
       creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
     }
     else {

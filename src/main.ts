@@ -33,9 +33,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
   CreepUtils.removeDeadCreeps(Memory)
 
-  RoleHarvester.spawn(Game.creeps, 2);
-  RoleUpgrader.spawn(Game.creeps, 1);
-  RoleBuilder.spawn(Game.creeps, 1);
+  RoleHarvester.spawn(Game.creeps, 4);
+  RoleUpgrader.spawn(Game.creeps, 4);
+  RoleBuilder.spawn(Game.creeps, 3);
 
   if (Game.spawns.Spawn1.spawning) {
     const spawningCreep = Game.creeps[Game.spawns.Spawn1.spawning.name];
